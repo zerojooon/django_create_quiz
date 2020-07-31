@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{% url 'quiz:results' %}" method="POST">
+  {% csrf_token %}
+    {% if question_list %}
+      <ul>
+        {% for question in question_list %}
+        <ul>{{question.question_text}}</ul>
+            {% for choice in question.choice_set.all %}
+
+            <input type="radio" name="choice{{question.pk}}" id="choice{{ choice.pk }}" value="{{choice.id}}">
+            <label for="choice{{choice.pk}}">{{choice.choice_text}}</label>
+            {% endfor %}
+            <hr/>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No polls are available.</p>
+    {% endif %}
+  <input type="submit" class=" btn btn-danger" value="퀴즈 제출">
+</form>
+
+{% endblock %}
