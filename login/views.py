@@ -14,7 +14,7 @@ def general_login(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('quiz:main')  # change to main page
+            return redirect('quiz:main')
         else:
             return render(request, 'login/social_login.html', {'error': 'username or password is incorrect'})
     else:
@@ -27,8 +27,8 @@ def sign_up(request):
             user = User.objects.create_user(
                 username=request.POST['username'], password=request.POST['password1'])
             auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('quiz:main')  # change to main page
-        return render(request, 'login/signup.html')  # is this right? check again
+            return redirect('quiz:main')
+        return render(request, 'login/signup.html')
     else:
         return render(request, 'login/signup.html')
 
